@@ -1,0 +1,54 @@
+{
+  "name": "kenzal/log-to-dump",
+  "description": "Adds a log channel to Laravel that sends log messages to the dump function.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "J. Kenzal Hunter, Sr",
+      "email": "kenzal.hunter@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "illuminate/log": ">=10.0",
+    "illuminate/support": ">=10.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": ">=8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Kenzal\\LogToDump\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "optimize-autoloader": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Kenzal\\LogToDump\\ServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@clear",
+      "@prepare"
+    ],
+    "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+    "prepare": "@php vendor/bin/testbench package:discover --ansi",
+    "build": "@php vendor/bin/testbench workbench:build --ansi",
+    "serve": [
+      "Composer\\Config::disableProcessTimeout",
+      "@build",
+      "@php vendor/bin/testbench serve --ansi"
+    ],
+    "test": "@php vendor/bin/phpunit"
+  }
+}
